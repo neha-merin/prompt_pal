@@ -45,23 +45,28 @@ The application allows users to:
 
 ### Home Page
 
-> Add your Home Page screenshot here.
+<img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/5764479c-2bf4-403c-af5e-576e61e600d4" />
+
 
 ### About Page
 
-> Add your About Page screenshot here.
+<img width="1918" height="896" alt="image" src="https://github.com/user-attachments/assets/80d29d08-d063-48d0-a9cc-a5a21bebb57a" />
+
 
 ### Prompt Guide
 
-> Add your Prompt Guide screenshot here.
+<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/b3a93b24-e9f1-43e9-a831-9e57ce315c6b" />
+
 
 ### Help Page
 
-> Add your Help Page screenshot here.
+<img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/e029393c-f56f-4637-bcfa-0ad309a0e2d7" />
+
 
 ### AI Response
 
-> Add your AI Response screenshot here.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8d049c48-16f5-4c34-b8fa-2c57f345397b" />
+
 
 ---
 
@@ -79,27 +84,15 @@ The application allows users to:
 
 ### 💬 1. Answer Questions
 
-Provides clear and beginner-friendly answers to user queries.
 
-Example:
+<img width="1913" height="843" alt="image" src="https://github.com/user-attachments/assets/eefdba59-394c-48d0-beeb-8d38438d5d61" />
 
-```
-What is Artificial Intelligence?
 ```
 
 ---
 
 ### 📝 2. Summarize Text
 
-Summarizes long text into concise bullet points.
-
-Example:
-
-```
-Summarize the following article...
-```
-
----
 
 ### ✨ 3. Creative Content
 
@@ -192,4 +185,4 @@ Saintgits College of Engineering
 
 ## 📄 License
 
-This project is developed for educational purposes as part of a Prompt Engineering course.
+This project is developed for educational purposes as part of a Aritifial Intelligence and Prompt Engineering Internship.
