@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptPal – AI Assistant</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Marked.js Markdown Parser CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Application Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+                <div class="brand-title">PromptPal</div>
+                <span class="brand-tag">AI Assistant</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="nav-item active" data-view="home">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a class="nav-item" data-view="about">
+                <i class="fa-solid fa-circle-question"></i>
+                <span>About</span>
+            </a>
+            <a class="nav-item" data-view="promptGuide">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Prompt Guide</span>
+            </a>
+            <a class="nav-item" data-view="help">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Help</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle-btn" id="themeToggleBtn">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                    <span id="themeText">Dark Mode</span>
+                </span>
+                <i class="fa-solid fa-arrows-rotate" style="font-size: 0.8rem; opacity: 0.6;"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Layout -->
+    <div class="main-wrapper">
+
+        <!-- Top Header Navigation -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="page-breadcrumb">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span id="breadcrumbTitle">Home</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="action-chip">
+                    <i class="fa-solid fa-bolt" style="color: #a855f7;"></i>
+                    <span>Prompt Engineering</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- View 1: Home Dashboard View -->
+        <main class="view-container active" id="homeView">
+            <section class="hero-section">
+                <h1 class="app-title">PromptPal – AI Assistant</h1>
+                <p class="app-subtitle">Your intelligent assistant powered by Prompt Engineering.</p>
+            </section>
+
+            <!-- Interactive Dashboard Card -->
+            <div class="glass-card">
+                
+                <!-- Function Switcher Dropdown & Pills -->
+                <div class="function-header">
+                    <div class="function-label">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Select Assistant Function</span>
+                    </div>
+
+                    <div class="function-controls">
+                        <!-- Dropdown Menu -->
+                        <select class="function-select-dropdown" id="functionSelect">
+                            <option value="qa">❓ Answer Questions</option>
+                            <option value="summarize">📝 Summarize Text</option>
+                            <option value="creative">🎨 Creative Content</option>
+                        </select>
+
+                        <!-- Visual Function Pills -->
+                        <div class="function-pills">
+                            <button class="pill-btn active" data-func="qa">
+                                <i class="fa-solid fa-circle-question"></i>
+                                <span>Answer Questions</span>
+                            </button>
+                            <button class="pill-btn" data-func="summarize">
+                                <i class="fa-solid fa-file-lines"></i>
+                                <span>Summarize Text</span>
+                            </button>
+                            <button class="pill-btn" data-func="creative">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>Creative Content</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active System Prompt Display Banner -->
+                <div class="system-prompt-banner">
+                    <i class="fa-solid fa-robot"></i>
+                    <div class="system-prompt-text" id="systemPromptText">
+                        <strong>Active Persona Prompt:</strong> Loading system prompt...
+                    </div>
+                </div>
+
+                <!-- Prompt Input Box -->
+                <div class="input-wrapper">
+                    <textarea class="prompt-textarea" id="promptInput" placeholder="Ask any question... e.g. 'How does quantum computing work?'"></textarea>
+                </div>
+
+                <!-- Textarea Footer Actions -->
+                <div class="textarea-footer">
+                    <div class="counter-badge">
+                        <span id="charCount"><i class="fa-solid fa-text-width"></i> 0 chars</span>
+                        <span>•</span>
+                        <span id="wordCount">0 words</span>
+                    </div>
+                    <button class="clear-btn" id="clearBtn">
+                        <i class="fa-solid fa-trash-can"></i> Clear Prompt
+                    </button>
+                </div>
+
+                <!-- Preset Quick Prompt Chips -->
+                <div class="presets-container">
+                    <div class="presets-title">💡 Try Preset Prompts:</div>
+                    <div class="preset-chips" id="presetChips">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Main CTA Button -->
+                <button class="generate-btn" id="generateBtn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Generate Response</span>
+                </button>
+            </div>
+
+            <!-- Loading Spinner State -->
+            <div class="loading-box glass-card" id="loadingBox">
+                <div class="spinner"></div>
+                <div class="loading-text">Generating Response...</div>
+            </div>
+
+            <!-- Response Display Card -->
+            <div class="glass-card response-card" id="responseCard">
+                <div class="response-header">
+                    <div class="ai-badge">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span id="responseBadgeText">AI Assistant Response</span>
+                    </div>
+                    <div class="response-actions">
+                        <button class="icon-btn" id="copyBtn">
+                            <i class="fa-solid fa-copy"></i> Copy Response
+                        </button>
+                        <button class="icon-btn" id="regenerateBtn">
+                            <i class="fa-solid fa-arrows-rotate"></i> Regenerate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formatted Markdown Content Output -->
+                <div class="markdown-body" id="responseContent">
+                    <!-- Response content will be injected here -->
+                </div>
+
+                <!-- Feedback Section -->
+                <div class="feedback-section">
+                    <div class="feedback-question">
+                        Was this response helpful?
+                    </div>
+                    <div class="feedback-btns" id="feedbackBtnsGroup">
+                        <button class="feedback-btn helpful" id="feedbackHelpful">
+                            <i class="fa-solid fa-thumbs-up"></i> Helpful
+                        </button>
+                        <button class="feedback-btn unhelpful" id="feedbackUnhelpful">
+                            <i class="fa-solid fa-thumbs-down"></i> Not Helpful
+                        </button>
+                    </div>
+                    <div class="feedback-thankyou" id="feedbackThankYou">
+                        <i class="fa-solid fa-circle-check"></i> Thank you for your feedback! Saved locally.
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- View 2: About View -->
+        <main class="view-container" id="aboutView">
+            <div class="page-header">
+                <h1 class="page-title">About PromptPal</h1>
+                <p class="page-desc">Overview of the application, objectives, and technology stack.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="info-box" style="margin-bottom: 20px;">
+                    <h3><i class="fa-solid fa-circle-info"></i> Project Information</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+                        <strong>Project Name:</strong> PromptPal – AI Assistant<br>
+                        <strong>Version:</strong> 1.0.0 (Production Ready)
+                    </p>
+                </div>
+
+                <div class="info-box" style="margin-bottom: 20px;">
+                    <h3><i class="fa-solid fa-bullseye"></i> Objective</h3>
+                    <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65;">
+                        This application demonstrates <strong>Prompt Engineering</strong> by allowing users to interact with an AI assistant capable of answering questions, summarizing text, and generating creative content using carefully designed system prompts.
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h3><i class="fa-solid fa-layer-group"></i> Technologies Used</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fa-brands fa-html5"></i> HTML5</span>
+                        <span class="tech-tag"><i class="fa-brands fa-css3-alt"></i> CSS3 (Glassmorphism)</span>
+                        <span class="tech-tag"><i class="fa-brands fa-js"></i> JavaScript (ES6 Modules)</span>
+                        <span class="tech-tag"><i class="fa-solid fa-robot"></i> AI API Engine</span>
+                        <span class="tech-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> Prompt Engineering</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- View 3: Prompt Guide View -->
+        <main class="view-container" id="promptGuideView">
+            <div class="page-header">
+                <h1 class="page-title">Prompt Guide</h1>
+                <p class="page-desc">Explore the exact system prompt templates used for each feature and understand how prompt engineering directs AI outputs.</p>
+            </div>
+
+            <div id="promptGuideList">
+                <!-- Prompt cards rendered dynamically via JS -->
+            </div>
+        </main>
+
+        <!-- View 4: Help View -->
+        <main class="view-container" id="helpView">
+            <div class="page-header">
+                <h1 class="page-title">Help & User Guide</h1>
+                <p class="page-desc">Follow these simple steps to get the best results from PromptPal.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>Select Your Assistant Function</h4>
+                    <p>Choose from <strong>Answer Questions</strong>, <strong>Summarize Text</strong>, or <strong>Creative Content</strong> using the top dropdown menu or pill selectors.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>Enter Your Prompt or Select a Preset</h4>
+                    <p>Type your custom prompt in the text box or click any of the pre-configured prompt chips below the input area.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>Generate & Review AI Response</h4>
+                    <p>Click <strong>Generate Response</strong> (or press <code>Ctrl + Enter</code>). The AI applies the corresponding system prompt to craft a clear, structured response.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>Copy Response & Provide Feedback</h4>
+                    <p>Use the <strong>Copy Response</strong> button to copy the output to your clipboard, and rate the response using the 👍 Helpful or 👎 Not Helpful buttons.</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script Entry -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
